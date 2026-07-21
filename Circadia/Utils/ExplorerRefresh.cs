@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Circadia.Infrastructure;
+namespace Circadia.Utils;
 
 public class ExplorerRefresh
 {
