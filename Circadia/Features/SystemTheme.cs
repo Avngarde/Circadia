@@ -30,8 +30,8 @@ public class SystemTheme : ISystemTheme
         var systemTheme = (int)(key?.GetValue("SystemUsesLightTheme") ?? 1);
 
         if (appsTheme == 0 && systemTheme == 0) 
-            return SystemThemeOption.Light;
+            return SystemThemeOption.Dark;
         
-        return SystemThemeOption.Dark;
+        return SystemThemeOption.Light;
     }
 }
