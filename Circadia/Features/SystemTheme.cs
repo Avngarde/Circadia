@@ -21,4 +21,17 @@ public class SystemTheme : ISystemTheme
         
         ExplorerRefresh.Refresh();
     }
+
+    public SystemThemeOption GetTheme()
+    {
+        using var key = Registry.CurrentUser.OpenSubKey(_key);
+
+        var appsTheme = (int)(key?.GetValue("AppsUseLightTheme") ?? 1);
+        var systemTheme = (int)(key?.GetValue("SystemUsesLightTheme") ?? 1);
+
+        if (appsTheme == 0 && systemTheme == 0) 
+            return SystemThemeOption.Light;
+        
+        return SystemThemeOption.Dark;
+    }
 }
