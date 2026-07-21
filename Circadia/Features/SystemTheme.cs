@@ -12,6 +12,9 @@ public class SystemTheme : ISystemTheme
         using RegistryKey registryKey =
             Registry.CurrentUser.CreateSubKey(_key);
         
-        registryKey.SetValue("AppsUseLightTheme", theme == SystemThemeOption.Light);
+        registryKey.SetValue("AppsUseLightTheme", theme == SystemThemeOption.Light, 
+            RegistryValueKind.DWord);
+        registryKey.SetValue("SystemUsesLightTheme", theme == SystemThemeOption.Light, 
+            RegistryValueKind.DWord);
     }
 }
