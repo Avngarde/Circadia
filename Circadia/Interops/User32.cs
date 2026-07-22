@@ -2,7 +2,7 @@
 
 namespace Circadia.Utils;
 
-public class ExplorerRefresh
+public class User32
 {
     [DllImport("user32.dll")]
     private static extern IntPtr SendMessageTimeout(
@@ -14,7 +14,7 @@ public class ExplorerRefresh
         uint timeout,
         out IntPtr result);
 
-    public static void Refresh()
+    public static void RefreshWindowsExplorer()
     {
         SendMessageTimeout(
             new IntPtr(0xffff),

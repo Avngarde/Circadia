@@ -19,7 +19,7 @@ public class SystemTheme : ISystemTheme
         registryKey.SetValue("SystemUsesLightTheme", theme == SystemThemeOption.Light, 
             RegistryValueKind.DWord);
         
-        ExplorerRefresh.Refresh();
+        User32.RefreshWindowsExplorer();
     }
 
     public SystemThemeOption GetTheme()
