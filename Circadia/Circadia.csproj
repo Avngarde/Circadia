@@ -13,6 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="Forms\Fonts\Montserrat.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
       <None Update="Resources\icon.ico">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>

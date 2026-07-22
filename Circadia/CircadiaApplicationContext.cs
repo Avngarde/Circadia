@@ -1,4 +1,5 @@
 ﻿using Circadia.Features;
+using Circadia.Forms;
 
 namespace Circadia;
 
@@ -9,7 +10,8 @@ public class CircadiaApplicationContext : ApplicationContext
     public CircadiaApplicationContext()
     {
         var menu = new ContextMenuStrip();
-        
+
+        menu.Items.Add("Show Settings", null, ShowSettings);
         menu.Items.Add("ChangeTheme", null, ChangeTheme);
         menu.Items.Add("GetBrightness", null, GetBrightness);
         menu.Items.Add("SetBrightnessTo50", null, SetBrightnessTo50);
@@ -21,6 +23,11 @@ public class CircadiaApplicationContext : ApplicationContext
             ContextMenuStrip = menu,
             Visible = true
         };
+    }
+
+    private void ShowSettings(object? sender, EventArgs e)
+    {
+        new SettingsForm().Show();
     }
 
     private void SetBrightnessTo50(object? sender, EventArgs e)
