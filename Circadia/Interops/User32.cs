@@ -5,7 +5,7 @@ namespace Circadia.Interops;
 public class User32
 {
     [DllImport("user32.dll")]
-    private static extern IntPtr SendMessageTimeout(
+    public static extern IntPtr SendMessageTimeout(
         IntPtr hWnd,
         uint Msg,
         IntPtr wParam,
@@ -27,18 +27,6 @@ public class User32
         IntPtr lprcClip,
         MonitorEnumProc lpfnEnum,
         IntPtr dwData);
-
-    public static void RefreshWindowsExplorer()
-    {
-        SendMessageTimeout(
-            new IntPtr(0xffff),
-            0x001A, // WM_SETTINGCHANGE
-            IntPtr.Zero,
-            "ImmersiveColorSet",
-            2,
-            1000,
-            out _);
-    }
 }
 
 [StructLayout(LayoutKind.Sequential)]

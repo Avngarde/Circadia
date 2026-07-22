@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Management;
 using Circadia.Interops;
+using Circadia.Utils;
 
 namespace Circadia.Features
 {
@@ -29,59 +30,11 @@ namespace Circadia.Features
             SetLaptopBrightness(brightClamped);
         }
 
-        private static void SetExternalBrightness(uint brightness)
-        {
-            User32.EnumDisplayMonitors(
-                IntPtr.Zero,
-                IntPtr.Zero,
-                (hMonitor, hdc, ref rect, data) =>
-                {
-                    if (!Dxva2.GetNumberOfPhysicalMonitorsFromHMONITOR(
-                        hMonitor,
-                        out uint count))
-                        return true;
+        private static void SetExternalBrightness(uint brightness) =>
+            BrightnessWinInteropFacade.MonitorEnumProcDelegateSetBrightness(brightness);
 
-                    var monitors = new PHYSICAL_MONITOR[count];
-
-                    if (!Dxva2.GetPhysicalMonitorsFromHMONITOR(
-                        hMonitor,
-                        count,
-                        monitors))
-                        return true;
-
-                    try
-                    {
-                        foreach (var monitor in monitors)
-                        {
-                            try
-                            {
-                                Dxva2.GetMonitorBrightness(
-                                    monitor.hPhysicalMonitor,
-                                    out uint min,
-                                    out _,
-                                    out uint max);
-
-                                uint value = min + (brightness * (max - min) / 100);
-
-                                Dxva2.SetMonitorBrightness(
-                                    monitor.hPhysicalMonitor,
-                                    value);
-                            }
-                            catch
-                            {
-                                continue;
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        Dxva2.DestroyPhysicalMonitors(count, monitors);
-                    }
-
-                    return true;
-                },
-                IntPtr.Zero);
-        }
+        private static uint GetExternalBrightness() => 
+            BrightnessWinInteropFacade.MonitorEnumProcDelegateGetBrightness();
 
         private static void SetLaptopBrightness(uint brightness)
         {
@@ -127,57 +80,6 @@ namespace Circadia.Features
             catch { }
 
             return 0;
-        }
-
-        private static uint GetExternalBrightness()
-        {
-            uint result = 0;
-
-            User32.EnumDisplayMonitors(
-                IntPtr.Zero,
-                IntPtr.Zero,
-                (hMonitor, hdc, ref rect, data) =>
-                {
-                    if (!Dxva2.GetNumberOfPhysicalMonitorsFromHMONITOR(
-                            hMonitor,
-                            out uint count))
-                        return true;
-
-                    var monitors = new PHYSICAL_MONITOR[count];
-
-                    if (!Dxva2.GetPhysicalMonitorsFromHMONITOR(
-                            hMonitor,
-                            count,
-                            monitors))
-                        return true;
-
-                    try
-                    {
-                        foreach (var monitor in monitors)
-                        {
-                            if (Dxva2.GetMonitorBrightness(
-                                    monitor.hPhysicalMonitor,
-                                    out uint min,
-                                    out uint current,
-                                    out uint max))
-                            {
-                                result = (current - min) * 100 / (max - min);
-                                return false;
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        Dxva2.DestroyPhysicalMonitors(
-                            count,
-                            monitors);
-                    }
-
-                    return true;
-                },
-                IntPtr.Zero);
-
-            return result;
         }
     }
 }

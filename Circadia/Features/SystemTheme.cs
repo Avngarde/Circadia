@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Circadia.Interops;
+using Circadia.Utils;
 using Microsoft.Win32;
 
 namespace Circadia.Features;
@@ -18,8 +19,8 @@ public class SystemTheme : ISystemTheme
             RegistryValueKind.DWord);
         registryKey.SetValue("SystemUsesLightTheme", theme == SystemThemeOption.Light, 
             RegistryValueKind.DWord);
-        
-        User32.RefreshWindowsExplorer();
+
+        WindowsExplorerInteropFacade.RefreshWindowsExplorer();
     }
 
     public SystemThemeOption GetTheme()
