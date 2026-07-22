@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using Circadia.Utils;
+using Circadia.Interops;
 using Microsoft.Win32;
 
 namespace Circadia.Features;

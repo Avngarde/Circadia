@@ -11,6 +11,8 @@ public class CircadiaApplicationContext : ApplicationContext
         var menu = new ContextMenuStrip();
         
         menu.Items.Add("ChangeTheme", null, ChangeTheme);
+        menu.Items.Add("GetBrightness", null, GetBrightness);
+        menu.Items.Add("SetBrightnessTo50", null, SetBrightnessTo50);
         menu.Items.Add("Exit", null, Exit);
 
         _trayIcon = new NotifyIcon
@@ -19,6 +21,22 @@ public class CircadiaApplicationContext : ApplicationContext
             ContextMenuStrip = menu,
             Visible = true
         };
+    }
+
+    private void SetBrightnessTo50(object? sender, EventArgs e)
+    {
+        Brightness brightness = new();
+
+        brightness.SetBrightness(50);
+    }
+
+    private void GetBrightness(object? sender, EventArgs e)
+    {
+        Brightness brightness = new();
+
+        var b = brightness.GetBrightness();
+
+        MessageBox.Show(b.ToString());
     }
 
     private void Exit(object? sender, EventArgs e)
