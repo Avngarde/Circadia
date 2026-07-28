@@ -96,6 +96,7 @@ namespace Circadia.Forms
             };
             
             Settings.Save(values);
+            MessageBox.Show(this, "Settings saved successfully", "Settings", MessageBoxButtons.OK);
         }
 
         private void LoadSettings()
