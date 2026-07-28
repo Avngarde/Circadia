@@ -75,9 +75,11 @@ namespace Circadia.Forms
                 Width = 280,
                 Minimum = 0,
                 Maximum = 100,
-                Value = 70,
-                TickFrequency = 10
+                Value = 80,
+                TickFrequency = 10,
             };
+            
+            brightnessLightBar.ValueChanged += BrightnessLightBarOnValueChanged;
 
             mainPanel.Controls.Add(brightnessLightBar);
             
@@ -109,9 +111,11 @@ namespace Circadia.Forms
                 Width = 280,
                 Minimum = 0,
                 Maximum = 100,
-                Value = 70,
+                Value = 50,
                 TickFrequency = 10
             };
+            
+            brightnessDarkBar.ValueChanged += BrightnessDarkBarOnValueChanged;
 
             mainPanel.Controls.Add(brightnessDarkBar);
             
@@ -148,7 +152,8 @@ namespace Circadia.Forms
             for (int i = 0; i < 24; i++)
                 timeFromCombo.Items.Add($"{i:00}:00");
 
-            timeFromCombo.SelectedIndex = 8;
+            timeFromCombo.SelectedIndex = 10;
+            timeFromCombo.SelectedValueChanged += TimeFromComboOnSelectedValueChanged;
 
             mainPanel.Controls.Add(timeFromCombo);
 
@@ -174,7 +179,8 @@ namespace Circadia.Forms
             for (int i = 0; i < 24; i++)
                 timeToCombo.Items.Add($"{i:00}:00");
 
-            timeToCombo.SelectedIndex = 22;
+            timeToCombo.SelectedIndex = 8;
+            timeToCombo.SelectedValueChanged += TimeToComboOnSelectedValueChanged;
 
             mainPanel.Controls.Add(timeToCombo);
 
@@ -190,6 +196,8 @@ namespace Circadia.Forms
             };
 
             saveButton.FlatAppearance.BorderSize = 0;
+            
+            saveButton.Click += SaveButtonOnClick;
 
             mainPanel.Controls.Add(saveButton);
 
@@ -203,6 +211,8 @@ namespace Circadia.Forms
                 FlatStyle = FlatStyle.Flat,
                 Font = CustomFontCollection.GetMontserrat(10, FontStyle.Bold),
             };
+            
+            closeButton.Click += CloseButtonOnClick;
 
             closeButton.FlatAppearance.BorderSize = 0;
 
