@@ -32,15 +32,16 @@ namespace Circadia.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.Size = new Size(420, 500);
+            this.Size = new Size(420, 550);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.BackColor = Color.FromArgb(18, 18, 24);
+            this.Name = "Circadia Settings";
 
             mainPanel = new Panel()
             {
                 Location = new Point(25, 25),
-                Size = new Size(350, 410),
+                Size = new Size(350, 460),
                 BackColor = Color.FromArgb(30, 30, 40)
             };
 
@@ -48,7 +49,7 @@ namespace Circadia.Forms
 
             titleLabel = new Label()
             {
-                Text = "Brightness Settings",
+                Text = "Circadia Settings",
                 Font = CustomFontCollection.GetMontserrat(14, FontStyle.Bold),
                 ForeColor = Color.White,
                 AutoSize = true,
@@ -57,19 +58,18 @@ namespace Circadia.Forms
 
             mainPanel.Controls.Add(titleLabel);
 
-            brightnessLabel = new Label()
+            brightnessLightLabel = new Label()
             {
-                Text = "Brightness",
+                Text = "Brightness Light Mode",
                 Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
                 ForeColor = Color.LightGray,
                 Location = new Point(30, 80),
                 AutoSize = true
             };
 
-            mainPanel.Controls.Add(brightnessLabel);
-
-
-            brightnessBar = new TrackBar()
+            mainPanel.Controls.Add(brightnessLightLabel);
+            
+            brightnessLightBar = new TrackBar()
             {
                 Location = new Point(30, 115),
                 Width = 280,
@@ -79,26 +79,59 @@ namespace Circadia.Forms
                 TickFrequency = 10
             };
 
-            mainPanel.Controls.Add(brightnessBar);
-
-
-            brightnessValue = new Label()
+            mainPanel.Controls.Add(brightnessLightBar);
+            
+            brightnessLightValue = new Label()
             {
-                Text = "70%",
+                Text = "80%",
                 Font = CustomFontCollection.GetMontserrat(12, FontStyle.Bold),
                 ForeColor = Color.White,
                 AutoSize = true,
                 Location = new Point(155, 155)
             };
 
-            mainPanel.Controls.Add(brightnessValue);
+            mainPanel.Controls.Add(brightnessLightValue);
+            
+            brightnessDarkLabel = new Label()
+            {
+                Text = "Brightness Dark Mode",
+                Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
+                ForeColor = Color.LightGray,
+                Location = new Point(30, 200),
+                AutoSize = true
+            };
+
+            mainPanel.Controls.Add(brightnessDarkLabel);
+            
+            brightnessDarkBar = new TrackBar()
+            {
+                Location = new Point(30, 230),
+                Width = 280,
+                Minimum = 0,
+                Maximum = 100,
+                Value = 70,
+                TickFrequency = 10
+            };
+
+            mainPanel.Controls.Add(brightnessDarkBar);
+            
+            brightnessDarkValue = new Label()
+            {
+                Text = "50%",
+                Font = CustomFontCollection.GetMontserrat(12, FontStyle.Bold),
+                ForeColor = Color.White,
+                AutoSize = true,
+                Location = new Point(155, 270)
+            };
+
+            mainPanel.Controls.Add(brightnessDarkValue);
 
             timeFromLabel = new Label()
             {
-                Text = "Time from",
+                Text = "Dark Mode from",
                 ForeColor = Color.LightGray,
                 Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
-                Location = new Point(30, 210),
+                Location = new Point(30, 310),
                 AutoSize = true
             };
 
@@ -106,7 +139,7 @@ namespace Circadia.Forms
 
             timeFromCombo = new ComboBox()
             {
-                Location = new Point(30, 240),
+                Location = new Point(30, 340),
                 Width = 120,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 BackColor = Color.White
@@ -121,10 +154,10 @@ namespace Circadia.Forms
 
             timeToLabel = new Label()
             {
-                Text = "Time to",
+                Text = "Dark Mode to",
                 ForeColor = Color.LightGray,
                 Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
-                Location = new Point(200, 210),
+                Location = new Point(200, 310),
                 AutoSize = true
             };
 
@@ -132,7 +165,7 @@ namespace Circadia.Forms
 
             timeToCombo = new ComboBox()
             {
-                Location = new Point(200, 240),
+                Location = new Point(200, 340),
                 Width = 120,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 BackColor = Color.White
@@ -148,7 +181,7 @@ namespace Circadia.Forms
             saveButton = new Button()
             {
                 Text = "Save",
-                Location = new Point(50, 330),
+                Location = new Point(50, 400),
                 Size = new Size(110, 40),
                 BackColor = Color.FromArgb(0, 120, 215),
                 ForeColor = Color.White,
@@ -163,7 +196,7 @@ namespace Circadia.Forms
             closeButton = new Button()
             {
                 Text = "Close",
-                Location = new Point(190, 330),
+                Location = new Point(190, 400),
                 Size = new Size(110, 40),
                 BackColor = Color.FromArgb(70, 70, 80),
                 ForeColor = Color.White,

@@ -13,9 +13,13 @@ namespace Circadia.Forms
         private Panel mainPanel;
         private Label titleLabel;
 
-        private Label brightnessLabel;
-        private TrackBar brightnessBar;
-        private Label brightnessValue;
+        private Label brightnessLightLabel;
+        private TrackBar brightnessLightBar;
+        private Label brightnessLightValue;
+        
+        private Label brightnessDarkLabel;
+        private TrackBar brightnessDarkBar;
+        private Label brightnessDarkValue;
 
         private Label timeFromLabel;
         private Label timeToLabel;
