@@ -39,16 +39,22 @@ namespace Circadia.Forms
 
         private TimeOnly _darkModeFrom;
         private TimeOnly _darkModeTo;
+
+        private uint _originalBrightness;
+        private IBrightness _brightness;
         #endregion 
 
         public SettingsForm()
         {
             InitializeComponent();
 
+            _brightness = new Brightness();
+
             if (!Settings.SettingsFileExists())
                 Settings.CreateDefault();
             
             LoadSettings();
+            LoadCurrentBrightness();
         }
         
         private void BrightnessLightBarOnValueChanged(object? sender, EventArgs e)
@@ -132,5 +138,18 @@ namespace Circadia.Forms
             timeFromCombo.SelectedItem = settingsValues.DarkModeFrom.ToString();
             timeToCombo.SelectedItem = settingsValues.DarkModeTo.ToString();
         }
+
+        private void LoadCurrentBrightness() =>
+            _originalBrightness = _brightness.GetBrightness();
+
+        private void BrightnessBarShowcaseBrightness(object? sender, EventArgs e)
+        {
+            var bar = sender as TrackBar;
+            
+            _brightness.SetBrightness((uint)bar.Value);
+        }
+
+        private void BrightnessBarSetOriginalBrightness(object? sender, MouseEventArgs e)
+            => _brightness.SetBrightness(_originalBrightness);
     }
 }

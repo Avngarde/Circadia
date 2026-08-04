@@ -80,6 +80,8 @@ namespace Circadia.Forms
             };
             
             brightnessLightBar.ValueChanged += BrightnessLightBarOnValueChanged;
+            brightnessLightBar.Scroll += BrightnessBarShowcaseBrightness;
+            brightnessLightBar.MouseUp += BrightnessBarSetOriginalBrightness;
 
             mainPanel.Controls.Add(brightnessLightBar);
             
@@ -116,6 +118,8 @@ namespace Circadia.Forms
             };
             
             brightnessDarkBar.ValueChanged += BrightnessDarkBarOnValueChanged;
+            brightnessDarkBar.Scroll += BrightnessBarShowcaseBrightness;
+            brightnessDarkBar.MouseUp += BrightnessBarSetOriginalBrightness;
 
             mainPanel.Controls.Add(brightnessDarkBar);
             
