@@ -5,14 +5,23 @@ namespace Circadia;
 
 public class CircadiaApplicationContext : ApplicationContext
 {
+    private bool _eyeProtectionOn;
     private NotifyIcon _trayIcon;
-
+    
+    private IBrightness _brightness;
+    private ISystemTheme _theme;
+    private SettingsValues _settings;
+    
     public CircadiaApplicationContext()
     {
+        _settings = Settings.Load();
+        _theme = new SystemTheme();
+        _brightness = new Brightness();
+        
         var menu = new ContextMenuStrip();
 
         menu.Items.Add("Show Settings", null, ShowSettings);
-        menu.Items.Add("ChangeTheme", null, ChangeTheme);
+        menu.Items.Add("Turn Eye Protection On", null, ToggleEyeProtection);
         menu.Items.Add("Exit", null, Exit);
 
         _trayIcon = new NotifyIcon
@@ -28,22 +37,25 @@ public class CircadiaApplicationContext : ApplicationContext
         new SettingsForm().Show();
     }
 
-    private void SetBrightnessTo50(object? sender, EventArgs e)
+    private void ToggleEyeProtection(object? sender, EventArgs e)
     {
-        Brightness brightness = new();
+        _brightness.SetBrightness(
+            _eyeProtectionOn 
+                ? (uint)_settings.BrightnessLight
+                : (uint)_settings.BrightnessDark
+        );
+        _theme.SetTheme(
+            _eyeProtectionOn
+                ? SystemThemeOption.Light
+                : SystemThemeOption.Dark
+        );
 
-        brightness.SetBrightness(50);
+        var menuItem = sender as ToolStripMenuItem;
+        _eyeProtectionOn = !_eyeProtectionOn;
+        
+        menuItem.Text = _eyeProtectionOn ? "Turn Eye Protection Off" : "Turn Eye Protection On";
     }
-
-    private void GetBrightness(object? sender, EventArgs e)
-    {
-        Brightness brightness = new();
-
-        var b = brightness.GetBrightness();
-
-        MessageBox.Show(b.ToString());
-    }
-
+    
     private void Exit(object? sender, EventArgs e)
     {
         _trayIcon.Visible = false;
