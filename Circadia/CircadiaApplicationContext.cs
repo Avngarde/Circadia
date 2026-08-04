@@ -13,8 +13,6 @@ public class CircadiaApplicationContext : ApplicationContext
 
         menu.Items.Add("Show Settings", null, ShowSettings);
         menu.Items.Add("ChangeTheme", null, ChangeTheme);
-        menu.Items.Add("GetBrightness", null, GetBrightness);
-        menu.Items.Add("SetBrightnessTo50", null, SetBrightnessTo50);
         menu.Items.Add("Exit", null, Exit);
 
         _trayIcon = new NotifyIcon
