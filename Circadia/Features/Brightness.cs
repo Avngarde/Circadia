@@ -38,25 +38,29 @@ namespace Circadia.Features
 
         private static void SetLaptopBrightness(uint brightness)
         {
-            brightness = Math.Min(brightness, 100);
-
-            var scope = new ManagementScope(@"\\.\root\wmi");
-
-            using var methods = new ManagementClass(
-                scope,
-                new ManagementPath("WmiMonitorBrightnessMethods"),
-                null);
-
-            foreach (ManagementObject monitor in methods.GetInstances())
+            try
             {
-                monitor.InvokeMethod(
-                    "WmiSetBrightness",
-                    new object[]
-                    {
-                1,
-                (byte)brightness
-                    });
+                brightness = Math.Min(brightness, 100);
+
+                var scope = new ManagementScope(@"\\.\root\wmi");
+
+                using var methods = new ManagementClass(
+                    scope,
+                    new ManagementPath("WmiMonitorBrightnessMethods"),
+                    null);
+
+                foreach (ManagementObject monitor in methods.GetInstances())
+                {
+                    monitor.InvokeMethod(
+                        "WmiSetBrightness",
+                        new object[]
+                        {
+                            1,
+                            (byte)brightness
+                        });
+                }
             }
+            catch (Exception) { }
         }
 
         private static uint GetLaptopBrightness()
