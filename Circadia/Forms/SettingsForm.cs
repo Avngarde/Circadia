@@ -69,8 +69,20 @@ namespace Circadia.Forms
             => _darkModeFrom = ParseTimeFromCombo(sender);
 
         private void TimeToComboOnSelectedValueChanged(object? sender, EventArgs e)
-            => _darkModeTo = ParseTimeFromCombo(sender);
-        
+        {
+            var timeTo = ParseTimeFromCombo(sender);
+
+            if (timeTo == _darkModeFrom)
+            {
+                MessageBox.Show(this, "Hours can't be the same", "Settings", MessageBoxButtons.OK);
+                var timeToCombo = sender as ComboBox;
+                timeToCombo.SelectedItem = _darkModeTo.ToString();
+                
+                return;
+            }
+
+            _darkModeTo = ParseTimeFromCombo(sender);
+        }
         
         private TimeOnly ParseTimeFromCombo(object? sender)
         {
