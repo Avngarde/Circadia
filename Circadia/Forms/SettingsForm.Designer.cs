@@ -32,7 +32,7 @@ namespace Circadia.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.Size = new Size(420, 550);
+            this.Size = new Size(420, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.BackColor = Color.FromArgb(18, 18, 24);
@@ -41,7 +41,7 @@ namespace Circadia.Forms
             mainPanel = new Panel()
             {
                 Location = new Point(25, 25),
-                Size = new Size(350, 460),
+                Size = new Size(350, 600),
                 BackColor = Color.FromArgb(30, 30, 40)
             };
 
@@ -133,13 +133,47 @@ namespace Circadia.Forms
             };
 
             mainPanel.Controls.Add(brightnessDarkValue);
+            
+            blueLightLabel = new Label()
+            {
+                Text = "Blue Light Intensity",
+                Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
+                ForeColor = Color.LightGray,
+                Location = new Point(30, 305),
+                AutoSize = true
+            };
+
+            mainPanel.Controls.Add(blueLightLabel);
+            
+            blueLightBar = new TrackBar()
+            {
+                Location = new Point(30, 330),
+                Width = 280,
+                Minimum = 0,
+                Maximum = 100,
+                Value = 50,
+                TickFrequency = 10
+            };
+            
+            mainPanel.Controls.Add(blueLightBar);
+            
+            blueLightValue = new Label()
+            {
+                Text = "50%",
+                Font = CustomFontCollection.GetMontserrat(12, FontStyle.Bold),
+                ForeColor = Color.White,
+                AutoSize = true,
+                Location = new Point(155, 370)
+            };
+
+            mainPanel.Controls.Add(blueLightValue);
 
             timeFromLabel = new Label()
             {
                 Text = "Dark Mode from",
                 ForeColor = Color.LightGray,
                 Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
-                Location = new Point(30, 310),
+                Location = new Point(30, 410),
                 AutoSize = true
             };
 
@@ -147,7 +181,7 @@ namespace Circadia.Forms
 
             timeFromCombo = new ComboBox()
             {
-                Location = new Point(30, 340),
+                Location = new Point(30, 440),
                 Width = 120,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 BackColor = Color.White
@@ -166,7 +200,7 @@ namespace Circadia.Forms
                 Text = "Dark Mode to",
                 ForeColor = Color.LightGray,
                 Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
-                Location = new Point(200, 310),
+                Location = new Point(200, 410),
                 AutoSize = true
             };
 
@@ -174,7 +208,7 @@ namespace Circadia.Forms
 
             timeToCombo = new ComboBox()
             {
-                Location = new Point(200, 340),
+                Location = new Point(200, 440),
                 Width = 120,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 BackColor = Color.White
@@ -191,7 +225,7 @@ namespace Circadia.Forms
             saveButton = new Button()
             {
                 Text = "Save",
-                Location = new Point(50, 400),
+                Location = new Point(50, 500),
                 Size = new Size(110, 40),
                 BackColor = Color.FromArgb(0, 120, 215),
                 ForeColor = Color.White,
@@ -208,7 +242,7 @@ namespace Circadia.Forms
             closeButton = new Button()
             {
                 Text = "Close",
-                Location = new Point(190, 400),
+                Location = new Point(190, 500),
                 Size = new Size(110, 40),
                 BackColor = Color.FromArgb(70, 70, 80),
                 ForeColor = Color.White,

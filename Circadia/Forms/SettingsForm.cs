@@ -22,6 +22,11 @@ namespace Circadia.Forms
         private Label brightnessDarkLabel;
         private TrackBar brightnessDarkBar;
         private Label brightnessDarkValue;
+        
+        private Label blueLightLabel;
+        private TrackBar blueLightBar;
+        private Label blueLightValue;
+
 
         private Label timeFromLabel;
         private Label timeToLabel;
