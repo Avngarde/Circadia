@@ -27,6 +27,13 @@ public class User32
         IntPtr lprcClip,
         MonitorEnumProc lpfnEnum,
         IntPtr dwData);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetDC(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+    
 }
 
 [StructLayout(LayoutKind.Sequential)]

@@ -22,6 +22,8 @@ public class CircadiaApplicationContext : ApplicationContext
 
         menu.Items.Add("Show Settings", null, ShowSettings);
         menu.Items.Add("Turn Eye Protection On", null, ToggleEyeProtection);
+        menu.Items.Add("Set Blue Light to 100", null, SetBlueLightTo100);
+        menu.Items.Add("Set Blue Light to 0", null, SetBlueLightTo0);
         menu.Items.Add("Exit", null, Exit);
 
         _trayIcon = new NotifyIcon
@@ -30,6 +32,18 @@ public class CircadiaApplicationContext : ApplicationContext
             ContextMenuStrip = menu,
             Visible = true
         };
+    }
+
+    private void SetBlueLightTo0(object? sender, EventArgs e)
+    {
+        BlueLight blueLight = new();
+        blueLight.TurnOff();
+    }
+
+    private void SetBlueLightTo100(object? sender, EventArgs e)
+    {
+        BlueLight blueLight = new();
+        blueLight.TurnOn(100);
     }
 
     private void ShowSettings(object? sender, EventArgs e)
