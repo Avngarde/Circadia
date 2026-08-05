@@ -34,7 +34,9 @@ public class CircadiaApplicationContext : ApplicationContext
 
     private void ShowSettings(object? sender, EventArgs e)
     {
-        new SettingsForm().Show();
+        new SettingsForm().ShowDialog();
+
+        _settings = Settings.Load();
     }
 
     private void ToggleEyeProtection(object? sender, EventArgs e)
