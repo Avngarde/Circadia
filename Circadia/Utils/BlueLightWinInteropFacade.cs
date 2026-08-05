@@ -23,9 +23,9 @@ namespace Circadia.Utils
 
             double p = intensity / 100.0;
             double gRed = 1.0;
-            double gGreen = 1.0 + (p * 0.4);
-            double gBlue = 1.0 + (p * 1.2);
-            double maxGreen = 1.0 - (p * 0.35);
+            double gGreen = 1.0 + (p * 0.8);
+            double gBlue = 1.0 + (p * 2.0);
+            double maxGreen = 1.0 - (p * 0.45);
             double maxBlue = 1.0 - (p * 0.80);
 
             for (int i = 0; i < 256; i++)
