@@ -36,8 +36,11 @@ namespace Circadia.Forms
 
         private Button saveButton;
         private Button closeButton;
+
+        private Button locationButton;
+        private Label locationLabel;
         #endregion
-        
+
         #region properties
         private int _brightnessLight;
         private int _brightnessDark;
@@ -156,5 +159,10 @@ namespace Circadia.Forms
 
         private void BrightnessBarSetOriginalBrightness(object? sender, MouseEventArgs e)
             => _brightness.SetBrightness(_originalBrightness);
+
+        private void LocationButtonOnClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
