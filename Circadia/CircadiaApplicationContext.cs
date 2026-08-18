@@ -14,6 +14,9 @@ public class CircadiaApplicationContext : ApplicationContext
     
     public CircadiaApplicationContext()
     {
+        if (!Settings.SettingsFileExists())
+            Settings.CreateDefault();
+
         _settings = Settings.Load();
         _theme = new SystemTheme();
         _brightness = new Brightness();
