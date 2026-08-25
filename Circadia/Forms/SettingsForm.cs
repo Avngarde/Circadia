@@ -31,8 +31,8 @@ namespace Circadia.Forms
         private Label timeFromLabel;
         private Label timeToLabel;
 
-        private ComboBox timeFromCombo;
-        private ComboBox timeToCombo;
+        private DateTimePicker timeFromPicker;
+        private DateTimePicker timeToPicker;
 
         private Button saveButton;
         private Button closeButton;
@@ -78,33 +78,7 @@ namespace Circadia.Forms
             _brightnessDark = darkBar.Value;
             brightnessDarkValue.Text = _brightnessDark + "%";
         }
-
-        private void TimeFromComboOnSelectedValueChanged(object? sender, EventArgs e) 
-            => _darkModeFrom = ParseTimeFromCombo(sender);
-
-        private void TimeToComboOnSelectedValueChanged(object? sender, EventArgs e)
-        {
-            var timeTo = ParseTimeFromCombo(sender);
-
-            if (timeTo == _darkModeFrom)
-            {
-                MessageBox.Show(this, "Hours can't be the same", "Settings", MessageBoxButtons.OK);
-                var timeToCombo = sender as ComboBox;
-                timeToCombo.SelectedItem = _darkModeTo.ToString();
-                
-                return;
-            }
-
-            _darkModeTo = ParseTimeFromCombo(sender);
-        }
         
-        private TimeOnly ParseTimeFromCombo(object? sender)
-        {
-            var combo = sender as ComboBox;
-            var value = combo?.SelectedItem as string;
-            return TimeOnly.Parse(value);
-        }
-
         private void CloseButtonOnClick(object? sender, EventArgs e)
             => this.Close();
 
@@ -143,8 +117,8 @@ namespace Circadia.Forms
             brightnessLightValue.Text = _brightnessLight + "%";
             brightnessDarkValue.Text = _brightnessDark + "%";
 
-            timeFromCombo.SelectedItem = settingsValues.DarkModeFrom.ToString();
-            timeToCombo.SelectedItem = settingsValues.DarkModeTo.ToString();
+            timeFromPicker.Value = DateTime.Parse(settingsValues.DarkModeFrom.ToString());
+            timeToPicker.Value = DateTime.Parse(settingsValues.DarkModeTo.ToString());
         }
 
         private void LoadCurrentBrightness() =>
@@ -162,22 +136,57 @@ namespace Circadia.Forms
 
         private async void GetLocationButtonOnClick(object? sender, EventArgs e)
         {
-            getLocationButton.Text = "Getting location....";
-            
-            ILocation location = new IpApiLocation();
-            LocationInfo? loc = await location.GetLocation();
-            
-            getLocationButton.Text = "Set timing from location";
-
-            if (loc is null)
+            try 
             {
-                MessageBox.Show("Failed to get location", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                getLocationButton.Text = "Getting location....";
                 
+                ILocation location = new IpApiLocation();
+                LocationInfo? loc = await location.GetLocation();
+                
+                getLocationButton.Text = "Set timing from location";
+
+                ISunTime sunTime = new SunTime();
+                var timing = await sunTime.GetSunTiming(loc.Lat, loc.Lon);
+
+                timeToPicker.Value = timing.Sunrise;
+                timeFromPicker.Value = timing.Sunset;
+
+                locationFoundLabel.Text = $"Location: {loc.Lat} {loc.Lon}";
+                locationFoundLabel.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to get location and sun timing", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                getLocationButton.Text = "Set timing from location";
+            }
+        }
+
+        private void TimeToPickerOnValueChanged(object? sender, EventArgs e)
+        {
+            var timePicker = sender as DateTimePicker;
+            var time = TimeOnly.Parse(timePicker.Value.ToShortTimeString());
+
+            if (time == _darkModeFrom)
+            {
+                MessageBox.Show(this, "Hours can't be the same", "Settings", MessageBoxButtons.OK);
+
+                timePicker.Value = DateTime.Parse(_darkModeTo.ToShortTimeString()); // Return to previous value
+
                 return;
             }
+            
+            _darkModeTo = time;
+        }
 
-            locationFoundLabel.Text = $"Location: {loc.Lat} {loc.Lon}";
-            locationFoundLabel.Visible = true;
+        private void TimeFromPickerOnValueChanged(object? sender, EventArgs e)
+        {
+            var timePicker = sender as DateTimePicker;
+            
+            _darkModeFrom = TimeOnly.Parse(timePicker.Value.ToShortTimeString());
         }
     }
 }

@@ -179,21 +179,18 @@ namespace Circadia.Forms
 
             mainPanel.Controls.Add(timeFromLabel);
 
-            timeFromCombo = new ComboBox()
+            timeFromPicker = new DateTimePicker()
             {
                 Location = new Point(30, 440),
                 Width = 120,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.White
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "HH:mm",
+                ShowUpDown = true,
             };
+            
+            timeFromPicker.ValueChanged += TimeFromPickerOnValueChanged;
 
-            for (int i = 0; i < 24; i++)
-                timeFromCombo.Items.Add($"{i:00}:00");
-
-            timeFromCombo.SelectedIndex = 10;
-            timeFromCombo.SelectedValueChanged += TimeFromComboOnSelectedValueChanged;
-
-            mainPanel.Controls.Add(timeFromCombo);
+            mainPanel.Controls.Add(timeFromPicker);
 
             timeToLabel = new Label()
             {
@@ -206,21 +203,18 @@ namespace Circadia.Forms
 
             mainPanel.Controls.Add(timeToLabel);
 
-            timeToCombo = new ComboBox()
+            timeToPicker = new DateTimePicker()
             {
                 Location = new Point(200, 440),
                 Width = 120,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.White
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "HH:mm",
+                ShowUpDown = true,
             };
+            
+            timeToPicker.ValueChanged += TimeToPickerOnValueChanged;
 
-            for (int i = 0; i < 24; i++)
-                timeToCombo.Items.Add($"{i:00}:00");
-
-            timeToCombo.SelectedIndex = 8;
-            timeToCombo.SelectedValueChanged += TimeToComboOnSelectedValueChanged;
-
-            mainPanel.Controls.Add(timeToCombo);
+            mainPanel.Controls.Add(timeToPicker);
             
             getLocationButton = new Button()
             {
