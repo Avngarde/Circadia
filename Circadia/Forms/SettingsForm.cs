@@ -36,6 +36,9 @@ namespace Circadia.Forms
 
         private Button saveButton;
         private Button closeButton;
+
+        private Button getLocationButton;
+        private Label locationFoundLabel;
         #endregion
         
         #region properties

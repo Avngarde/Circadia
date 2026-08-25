@@ -32,7 +32,7 @@ namespace Circadia.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.Size = new Size(420, 700);
+            this.Size = new Size(420, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.BackColor = Color.FromArgb(18, 18, 24);
@@ -41,7 +41,7 @@ namespace Circadia.Forms
             mainPanel = new Panel()
             {
                 Location = new Point(25, 25),
-                Size = new Size(350, 600),
+                Size = new Size(350, 650),
                 BackColor = Color.FromArgb(30, 30, 40)
             };
 
@@ -221,11 +221,38 @@ namespace Circadia.Forms
             timeToCombo.SelectedValueChanged += TimeToComboOnSelectedValueChanged;
 
             mainPanel.Controls.Add(timeToCombo);
+            
+            getLocationButton = new Button()
+            {
+                Text = "Set timing from location",
+                Location = new Point(50, 490),
+                Size = new Size(250, 40),
+                BackColor = Color.FromArgb(0, 120, 215),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = CustomFontCollection.GetMontserrat(10, FontStyle.Bold),
+            };
+
+            getLocationButton.FlatAppearance.BorderSize = 0;
+
+            mainPanel.Controls.Add(getLocationButton);
+
+            locationFoundLabel = new Label()
+            {
+                Text = "Location found:",
+                Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
+                ForeColor = Color.LightGray,
+                AutoSize = true,
+                Location = new Point(50, 540),
+                Visible = false
+            };
+
+            mainPanel.Controls.Add(locationFoundLabel);
 
             saveButton = new Button()
             {
                 Text = "Save",
-                Location = new Point(50, 500),
+                Location = new Point(50, 580),
                 Size = new Size(110, 40),
                 BackColor = Color.FromArgb(0, 120, 215),
                 ForeColor = Color.White,
@@ -242,7 +269,7 @@ namespace Circadia.Forms
             closeButton = new Button()
             {
                 Text = "Close",
-                Location = new Point(190, 500),
+                Location = new Point(190, 580),
                 Size = new Size(110, 40),
                 BackColor = Color.FromArgb(70, 70, 80),
                 ForeColor = Color.White,
