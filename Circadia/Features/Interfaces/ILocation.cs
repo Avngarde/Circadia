@@ -7,8 +7,8 @@ public interface ILocation
 
 public class LocationInfo
 {
-    public string? RegionName { get; set; }
-    public string? Country { get; set; }
-    public float? Lat { get; set; }
-    public float? Lon { get; set; }
+    public string RegionName { get; set; }
+    public string Country { get; set; }
+    public float Lat { get; set; }
+    public float Lon { get; set; }
 }
