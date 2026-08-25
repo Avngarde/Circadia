@@ -234,6 +234,7 @@ namespace Circadia.Forms
             };
 
             getLocationButton.FlatAppearance.BorderSize = 0;
+            getLocationButton.Click += GetLocationButtonOnClick;
 
             mainPanel.Controls.Add(getLocationButton);
 

@@ -159,5 +159,25 @@ namespace Circadia.Forms
 
         private void BrightnessBarSetOriginalBrightness(object? sender, MouseEventArgs e)
             => _brightness.SetBrightness(_originalBrightness);
+
+        private async void GetLocationButtonOnClick(object? sender, EventArgs e)
+        {
+            getLocationButton.Text = "Getting location....";
+            
+            ILocation location = new IpApiLocation();
+            LocationInfo? loc = await location.GetLocation();
+            
+            getLocationButton.Text = "Set timing from location";
+
+            if (loc is null)
+            {
+                MessageBox.Show("Failed to get location", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                return;
+            }
+
+            locationFoundLabel.Text = $"Location: {loc.Lat} {loc.Lon}";
+            locationFoundLabel.Visible = true;
+        }
     }
 }
