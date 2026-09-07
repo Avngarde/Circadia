@@ -32,7 +32,7 @@ namespace Circadia.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.Size = new Size(420, 700);
+            this.Size = new Size(420, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.BackColor = Color.FromArgb(18, 18, 24);
@@ -41,7 +41,7 @@ namespace Circadia.Forms
             mainPanel = new Panel()
             {
                 Location = new Point(25, 25),
-                Size = new Size(350, 600),
+                Size = new Size(350, 650),
                 BackColor = Color.FromArgb(30, 30, 40)
             };
 
@@ -179,21 +179,18 @@ namespace Circadia.Forms
 
             mainPanel.Controls.Add(timeFromLabel);
 
-            timeFromCombo = new ComboBox()
+            timeFromPicker = new DateTimePicker()
             {
                 Location = new Point(30, 440),
                 Width = 120,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.White
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "HH:mm",
+                ShowUpDown = true,
             };
+            
+            timeFromPicker.ValueChanged += TimeFromPickerOnValueChanged;
 
-            for (int i = 0; i < 24; i++)
-                timeFromCombo.Items.Add($"{i:00}:00");
-
-            timeFromCombo.SelectedIndex = 10;
-            timeFromCombo.SelectedValueChanged += TimeFromComboOnSelectedValueChanged;
-
-            mainPanel.Controls.Add(timeFromCombo);
+            mainPanel.Controls.Add(timeFromPicker);
 
             timeToLabel = new Label()
             {
@@ -206,27 +203,52 @@ namespace Circadia.Forms
 
             mainPanel.Controls.Add(timeToLabel);
 
-            timeToCombo = new ComboBox()
+            timeToPicker = new DateTimePicker()
             {
                 Location = new Point(200, 440),
                 Width = 120,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                BackColor = Color.White
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "HH:mm",
+                ShowUpDown = true,
+            };
+            
+            timeToPicker.ValueChanged += TimeToPickerOnValueChanged;
+
+            mainPanel.Controls.Add(timeToPicker);
+            
+            getLocationButton = new Button()
+            {
+                Text = "Set timing from location",
+                Location = new Point(30, 490),
+                Size = new Size(290, 40),
+                BackColor = Color.FromArgb(0, 120, 215),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = CustomFontCollection.GetMontserrat(10, FontStyle.Bold),
             };
 
-            for (int i = 0; i < 24; i++)
-                timeToCombo.Items.Add($"{i:00}:00");
+            getLocationButton.FlatAppearance.BorderSize = 0;
+            getLocationButton.Click += GetLocationButtonOnClick;
 
-            timeToCombo.SelectedIndex = 8;
-            timeToCombo.SelectedValueChanged += TimeToComboOnSelectedValueChanged;
+            mainPanel.Controls.Add(getLocationButton);
 
-            mainPanel.Controls.Add(timeToCombo);
+            locationFoundLabel = new Label()
+            {
+                Text = "Location found:",
+                Font = CustomFontCollection.GetMontserrat(12, FontStyle.Bold),
+                ForeColor = Color.LightGray,
+                AutoSize = true,
+                Location = new Point(30, 540),
+                Visible = false
+            };
+
+            mainPanel.Controls.Add(locationFoundLabel);
 
             saveButton = new Button()
             {
                 Text = "Save",
-                Location = new Point(50, 500),
-                Size = new Size(110, 40),
+                Location = new Point(30, 580),
+                Size = new Size(135, 40),
                 BackColor = Color.FromArgb(0, 120, 215),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
@@ -242,8 +264,8 @@ namespace Circadia.Forms
             closeButton = new Button()
             {
                 Text = "Close",
-                Location = new Point(190, 500),
-                Size = new Size(110, 40),
+                Location = new Point(185, 580),
+                Size = new Size(135, 40),
                 BackColor = Color.FromArgb(70, 70, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
