@@ -219,8 +219,8 @@ namespace Circadia.Forms
             getLocationButton = new Button()
             {
                 Text = "Set timing from location",
-                Location = new Point(50, 490),
-                Size = new Size(250, 40),
+                Location = new Point(30, 490),
+                Size = new Size(290, 40),
                 BackColor = Color.FromArgb(0, 120, 215),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
@@ -235,10 +235,10 @@ namespace Circadia.Forms
             locationFoundLabel = new Label()
             {
                 Text = "Location found:",
-                Font = CustomFontCollection.GetMontserrat(10, FontStyle.Regular),
+                Font = CustomFontCollection.GetMontserrat(12, FontStyle.Bold),
                 ForeColor = Color.LightGray,
                 AutoSize = true,
-                Location = new Point(50, 540),
+                Location = new Point(30, 540),
                 Visible = false
             };
 
@@ -247,8 +247,8 @@ namespace Circadia.Forms
             saveButton = new Button()
             {
                 Text = "Save",
-                Location = new Point(50, 580),
-                Size = new Size(110, 40),
+                Location = new Point(30, 580),
+                Size = new Size(135, 40),
                 BackColor = Color.FromArgb(0, 120, 215),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
@@ -264,8 +264,8 @@ namespace Circadia.Forms
             closeButton = new Button()
             {
                 Text = "Close",
-                Location = new Point(190, 580),
-                Size = new Size(110, 40),
+                Location = new Point(185, 580),
+                Size = new Size(135, 40),
                 BackColor = Color.FromArgb(70, 70, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
