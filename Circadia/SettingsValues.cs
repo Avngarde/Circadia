@@ -6,4 +6,5 @@ public class SettingsValues
     public TimeOnly DarkModeTo { get; set; }
     public int BrightnessLight { get; set; }
     public int BrightnessDark { get; set; }
+    public int BlueLightValue { get; set; }
 }

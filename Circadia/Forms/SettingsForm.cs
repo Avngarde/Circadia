@@ -48,8 +48,11 @@ namespace Circadia.Forms
         private TimeOnly _darkModeFrom;
         private TimeOnly _darkModeTo;
 
+        private int _blueLightValue;
+
         private uint _originalBrightness;
         private IBrightness _brightness;
+        private IBlueLight _blueLight;
         #endregion 
 
         public SettingsForm()
@@ -57,6 +60,7 @@ namespace Circadia.Forms
             InitializeComponent();
 
             _brightness = new Brightness();
+            _blueLight = new BlueLight();
 
             if (!Settings.SettingsFileExists())
                 Settings.CreateDefault();
@@ -93,6 +97,7 @@ namespace Circadia.Forms
                 DarkModeTo = _darkModeTo,
                 BrightnessLight = _brightnessLight,
                 BrightnessDark = _brightnessDark,
+                BlueLightValue = _blueLightValue
             };
             
             Settings.Save(values);
@@ -110,15 +115,18 @@ namespace Circadia.Forms
             _brightnessDark = settingsValues.BrightnessDark;
             _darkModeFrom = settingsValues.DarkModeFrom;
             _darkModeTo = settingsValues.DarkModeTo;
+            _blueLightValue = settingsValues.BlueLightValue;
             
             brightnessDarkBar.Value = _brightnessDark;
             brightnessLightBar.Value = _brightnessLight;
+            blueLightBar.Value = (int)_blueLightValue;
             
             brightnessLightValue.Text = _brightnessLight + "%";
             brightnessDarkValue.Text = _brightnessDark + "%";
 
             timeFromPicker.Value = DateTime.Parse(settingsValues.DarkModeFrom.ToString());
             timeToPicker.Value = DateTime.Parse(settingsValues.DarkModeTo.ToString());
+            
         }
 
         private void LoadCurrentBrightness() =>
@@ -188,5 +196,23 @@ namespace Circadia.Forms
             
             _darkModeFrom = TimeOnly.Parse(timePicker.Value.ToShortTimeString());
         }
+
+        private void BlueLightBarOnValueChanged(object? sender, EventArgs e)
+        {
+            var trackBar = sender as TrackBar;
+
+            blueLightValue.Text = $"{trackBar.Value}%";
+            _blueLightValue = trackBar.Value;
+        }
+
+        private void BlueLightBarOnScroll(object? sender, EventArgs e)
+        {
+            var trackBar = sender as TrackBar;
+            
+            _blueLight.TurnOn((uint)trackBar.Value);
+        }
+
+        private void BlueLightBarOnMouseUp(object? sender, MouseEventArgs e)
+            => _blueLight.TurnOff();
     }
 }

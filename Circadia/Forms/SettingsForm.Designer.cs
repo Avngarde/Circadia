@@ -151,9 +151,14 @@ namespace Circadia.Forms
                 Width = 280,
                 Minimum = 0,
                 Maximum = 100,
-                Value = 50,
+                Value = 0,
                 TickFrequency = 10
             };
+            
+            blueLightBar.ValueChanged += BlueLightBarOnValueChanged;
+            blueLightBar.Scroll += BlueLightBarOnScroll;
+            blueLightBar.MouseUp += BlueLightBarOnMouseUp;
+
             
             mainPanel.Controls.Add(blueLightBar);
             
