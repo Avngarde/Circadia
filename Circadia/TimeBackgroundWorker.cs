@@ -14,6 +14,7 @@ public class TimeBackgroundWorker : BackgroundService
     private ISystemTheme _theme;
     private IBlueLight _blueLight;
     private SystemThemeOption _currentTheme;
+    private SettingsValues _settings;
 
     public TimeBackgroundWorker()
     {
@@ -22,6 +23,7 @@ public class TimeBackgroundWorker : BackgroundService
         _blueLight = new BlueLight();   
 
         _currentTheme = _theme.GetTheme(); 
+        _settings = Settings.Load();
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -43,14 +45,13 @@ public class TimeBackgroundWorker : BackgroundService
 
     private void CheckTime()
     {
-        var settings = Settings.Load();
         var timeNow = new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute);
         bool isDarkMode;
 
-        if (settings.DarkModeFrom > settings.DarkModeTo) // Clocks moves past 00:00 during the dark mode span
-            isDarkMode = timeNow > settings.DarkModeFrom || timeNow < settings.DarkModeTo;
+        if (_settings.DarkModeFrom > _settings.DarkModeTo) // Clocks moves past 00:00 during the dark mode span
+            isDarkMode = timeNow > _settings.DarkModeFrom || timeNow < _settings.DarkModeTo;
         else
-            isDarkMode = timeNow > settings.DarkModeFrom && timeNow < settings.DarkModeTo;
+            isDarkMode = timeNow > _settings.DarkModeFrom && timeNow < _settings.DarkModeTo;
 
         if ((isDarkMode && _currentTheme == SystemThemeOption.Dark) 
             || 
@@ -59,15 +60,15 @@ public class TimeBackgroundWorker : BackgroundService
     
         if (isDarkMode)
         {
-            _brightness.SetBrightness((uint)settings.BrightnessDark);
+            _brightness.SetBrightness((uint)_settings.BrightnessDark);
             _theme.SetTheme(SystemThemeOption.Dark);
-            _blueLight.TurnOn((uint)settings.BlueLightValue);
+            _blueLight.TurnOn((uint)_settings.BlueLightValue);
 
             _currentTheme = SystemThemeOption.Dark;
         }
         else
         {
-            _brightness.SetBrightness((uint)settings.BrightnessLight);
+            _brightness.SetBrightness((uint)_settings.BrightnessLight);
             _theme.SetTheme(SystemThemeOption.Light);
             _blueLight.TurnOff(); 
 
