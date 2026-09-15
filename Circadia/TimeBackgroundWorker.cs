@@ -28,7 +28,7 @@ public class TimeBackgroundWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var timer = new PeriodicTimer (TimeSpan.FromSeconds(5));
+        using var timer = new PeriodicTimer (TimeSpan.FromSeconds(45));
 
         while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken))
         {
