@@ -30,6 +30,7 @@ public static class Settings
             BrightnessLight = 90,
             DarkModeFrom = TimeOnly.Parse("21:00"),
             DarkModeTo = TimeOnly.Parse("07:00"),
+            FirstLaunch = true
         };
         
         Save(settings);

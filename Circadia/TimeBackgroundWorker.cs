@@ -23,6 +23,10 @@ public class TimeBackgroundWorker : BackgroundService
         _blueLight = new BlueLight();   
 
         _currentTheme = _theme.GetTheme(); 
+
+        if (!Settings.SettingsFileExists())
+            Settings.CreateDefault();
+
         _settings = Settings.Load();
     }
 

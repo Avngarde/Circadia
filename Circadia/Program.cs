@@ -15,7 +15,6 @@ static class Program
 
         _cts = new CancellationTokenSource();
         _worker = new TimeBackgroundWorker();
-
         _ = _worker.StartAsync(_cts.Token);
 
         Application.Run(new CircadiaApplicationContext());
