@@ -17,9 +17,6 @@ public class CircadiaApplicationContext : ApplicationContext
     {
         _settings = Settings.Load();
 
-        if (_settings.FirstLaunch == true)
-            AskForAutostart();
-
         _theme = new SystemTheme();
         _brightness = new Brightness();
         
@@ -37,6 +34,12 @@ public class CircadiaApplicationContext : ApplicationContext
             ContextMenuStrip = menu,
             Visible = true
         };
+
+        if (_settings.FirstLaunch == true)
+        {
+            AskForAutostart();
+            ShowSettings(null, null);
+        }
 
         _settings.FirstLaunch = false;
         Settings.Save(_settings);
@@ -75,7 +78,7 @@ public class CircadiaApplicationContext : ApplicationContext
         blueLight.TurnOn(100);
     }
 
-    private void ShowSettings(object? sender, EventArgs e)
+    private void ShowSettings(object? sender, EventArgs? e)
     {
         new SettingsForm().ShowDialog();
 
