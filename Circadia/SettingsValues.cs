@@ -7,4 +7,5 @@ public class SettingsValues
     public int BrightnessLight { get; set; }
     public int BrightnessDark { get; set; }
     public int BlueLightValue { get; set; }
+    public bool FirstLaunch { get; set; }
 }

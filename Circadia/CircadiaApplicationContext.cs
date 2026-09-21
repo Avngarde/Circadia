@@ -1,5 +1,6 @@
 ﻿using Circadia.Features;
 using Circadia.Forms;
+using Microsoft.Win32;
 
 namespace Circadia;
 
@@ -14,10 +15,8 @@ public class CircadiaApplicationContext : ApplicationContext
     
     public CircadiaApplicationContext()
     {
-        if (!Settings.SettingsFileExists())
-            Settings.CreateDefault();
-
         _settings = Settings.Load();
+
         _theme = new SystemTheme();
         _brightness = new Brightness();
         
@@ -35,6 +34,36 @@ public class CircadiaApplicationContext : ApplicationContext
             ContextMenuStrip = menu,
             Visible = true
         };
+
+        if (_settings.FirstLaunch == true)
+        {
+            AskForAutostart();
+            ShowSettings(null, null);
+        }
+
+        _settings.FirstLaunch = false;
+        Settings.Save(_settings);
+    }
+
+    private void AskForAutostart()
+    {
+        var result = MessageBox.Show("Do you want to add Circadia to AutoStart?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        if (result == DialogResult.No)
+            return;
+
+        AddToAutostart();
+    }
+
+    private void AddToAutostart()
+    {
+        string appName = "Circadia";
+        string appPath = Application.ExecutablePath;
+
+        using RegistryKey? key = Registry.CurrentUser.OpenSubKey(
+            @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+
+        key?.SetValue(appName, appPath);        
     }
 
     private void SetBlueLightTo0(object? sender, EventArgs e)
@@ -49,7 +78,7 @@ public class CircadiaApplicationContext : ApplicationContext
         blueLight.TurnOn(100);
     }
 
-    private void ShowSettings(object? sender, EventArgs e)
+    private void ShowSettings(object? sender, EventArgs? e)
     {
         new SettingsForm().ShowDialog();
 
