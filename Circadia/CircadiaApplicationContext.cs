@@ -82,7 +82,7 @@ public class CircadiaApplicationContext : ApplicationContext
     {
         new SettingsForm().ShowDialog();
 
-        _settings = Settings.Load();
+        Application.Restart();
     }
 
     private void ToggleEyeProtection(object? sender, EventArgs e)
