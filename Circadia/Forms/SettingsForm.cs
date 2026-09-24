@@ -161,7 +161,7 @@ namespace Circadia.Forms
                 timeToPicker.Value = timing.Sunrise;
                 timeFromPicker.Value = timing.Sunset;
 
-                locationFoundLabel.Text = $"Location: {loc.Lat} {loc.Lon}";
+                locationFoundLabel.Text = $"Location: {loc.Lat} {loc.Lon}, {loc.Country} {loc.RegionName}";
                 locationFoundLabel.Visible = true;
 
             }
@@ -222,7 +222,7 @@ namespace Circadia.Forms
             for (double opacity = 0.0; opacity <= 1.0; opacity += 0.08) 
             { 
                 Opacity = opacity; 
-                
+
                 await Task.Delay(10); 
             } 
 
