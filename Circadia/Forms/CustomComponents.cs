@@ -57,10 +57,7 @@ public static class CustomComponents
     }
 
 
-    public static Button CreateModernButton(
-        string text,
-        Color background,
-        Color foreground)
+    public static Button CreateModernButton(string text, Color background, Color foreground)
     {
         Button button = new Button()
         {
