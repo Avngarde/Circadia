@@ -1,3 +1,6 @@
+using Circadia.Features;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Circadia;
 
 static class Program
@@ -13,14 +16,32 @@ static class Program
     {
         ApplicationConfiguration.Initialize();
 
-        _cts = new CancellationTokenSource();
-        _worker = new TimeBackgroundWorker();
-        _ = _worker.StartAsync(_cts.Token);
+        var services = new ServiceCollection();
 
-        Application.Run(new CircadiaApplicationContext());
+        services.AddSingleton<IBlueLight, BlueLight>();
+        services.AddSingleton<IBrightness, Brightness>();
+        services.AddSingleton<ISystemTheme, SystemTheme>();
+        services.AddSingleton<ISunTime, SunTime>();
+        services.AddSingleton<ILocation, IpApiLocation>();
 
-        _cts.Cancel();
-        _worker.StopAsync(CancellationToken.None).GetAwaiter().GetResult();
-        _cts.Dispose();
+        services.AddSingleton<TimeBackgroundWorker>();
+        services.AddSingleton<CircadiaApplicationContext>();
+
+        using var serviceProvider = services.BuildServiceProvider();
+
+        using var cts = new CancellationTokenSource();
+
+        var worker = serviceProvider.GetRequiredService<TimeBackgroundWorker>();
+        var applicationContext =
+            serviceProvider.GetRequiredService<CircadiaApplicationContext>();
+
+        _ = worker.StartAsync(cts.Token);
+
+        Application.Run(applicationContext);
+
+        cts.Cancel();
+        worker.StopAsync(CancellationToken.None)
+            .GetAwaiter()
+            .GetResult();
     }
 }

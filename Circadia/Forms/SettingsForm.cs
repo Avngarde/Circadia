@@ -55,12 +55,12 @@ namespace Circadia.Forms
         private IBlueLight _blueLight;
         #endregion 
 
-        public SettingsForm()
+        public SettingsForm(IBrightness brightness, IBlueLight blueLight)
         {
             InitializeComponent();
 
-            _brightness = new Brightness();
-            _blueLight = new BlueLight();
+            _brightness = brightness;
+            _blueLight = blueLight;
 
             if (!Settings.SettingsFileExists())
                 Settings.CreateDefault();

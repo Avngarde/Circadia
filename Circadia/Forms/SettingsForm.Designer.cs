@@ -164,7 +164,7 @@ namespace Circadia.Forms
             
             blueLightValue = new Label()
             {
-                Text = "50%",
+                Text = "0%",
                 Font = CustomFontCollection.GetMontserrat(12, FontStyle.Bold),
                 ForeColor = Color.White,
                 AutoSize = true,

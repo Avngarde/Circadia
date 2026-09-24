@@ -8,19 +8,19 @@ public class CircadiaApplicationContext : ApplicationContext
 {
     private bool _eyeProtectionOn;
     private NotifyIcon _trayIcon;
+    private SettingsValues _settings;
     
     private IBrightness _brightness;
     private ISystemTheme _theme;
-    private SettingsValues _settings;
     private IBlueLight _blueLight;
     
-    public CircadiaApplicationContext()
+    public CircadiaApplicationContext(IBrightness brightness, IBlueLight blueLight, ISystemTheme systemTheme)
     {
         _settings = Settings.Load();
 
-        _theme = new SystemTheme();
-        _brightness = new Brightness();
-        _blueLight = new BlueLight();
+        _theme = systemTheme;
+        _brightness = brightness;
+        _blueLight = blueLight;
         
         var menu = new ContextMenuStrip();
 
@@ -77,7 +77,7 @@ public class CircadiaApplicationContext : ApplicationContext
 
     private void ShowSettings(object? sender, EventArgs? e)
     {
-        new SettingsForm().ShowDialog();
+        new SettingsForm(_brightness, _blueLight).ShowDialog();
 
         Application.Restart();
     }

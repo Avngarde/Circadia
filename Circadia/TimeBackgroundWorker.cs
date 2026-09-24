@@ -16,11 +16,11 @@ public class TimeBackgroundWorker : BackgroundService
     private SystemThemeOption _currentTheme;
     private SettingsValues _settings;
 
-    public TimeBackgroundWorker()
+    public TimeBackgroundWorker(IBrightness brightness, IBlueLight blueLight, ISystemTheme systemTheme)
     {
-        _theme = new SystemTheme();
-        _brightness = new Brightness();
-        _blueLight = new BlueLight();   
+        _theme = systemTheme;
+        _brightness = brightness;
+        _blueLight = blueLight;  
 
         _currentTheme = _theme.GetTheme(); 
 
