@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 using Circadia.Features;
+using Circadia.Forms.Fonts;
 
 namespace Circadia.Forms
 {
@@ -214,5 +216,17 @@ namespace Circadia.Forms
 
         private void BlueLightBarOnMouseUp(object? sender, MouseEventArgs e)
             => _blueLight.TurnOff();
+
+        private async void SettingsFormOnShown(object? sender, EventArgs e) 
+        { 
+            for (double opacity = 0.0; opacity <= 1.0; opacity += 0.08) 
+            { 
+                Opacity = opacity; 
+                
+                await Task.Delay(10); 
+            } 
+
+            Opacity = 1.0; 
+        }            
     }
 }
