@@ -40,13 +40,13 @@ public static class CustomComponents
     {
         DateTimePicker picker = new DateTimePicker()
         {
-            Width = 140,
+            Width = 145,
             Height = 34,
             Format = DateTimePickerFormat.Custom,
             CustomFormat = "HH:mm",
             ShowUpDown = true,
             Font = CustomFontCollection.GetMontserrat(
-                9,
+                11,
                 FontStyle.Bold
             ),
             CalendarForeColor = Color.White,
@@ -66,7 +66,7 @@ public static class CustomComponents
             ForeColor = foreground,
             FlatStyle = FlatStyle.Flat,
             Font = CustomFontCollection.GetMontserrat(
-                9,
+                12,
                 FontStyle.Bold
             ),
             Cursor = Cursors.Hand,

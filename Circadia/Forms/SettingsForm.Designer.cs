@@ -138,12 +138,12 @@ namespace Circadia.Forms
             {
                 Text = "Customize your experience",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    12,
                     FontStyle.Regular
                 ),
                 ForeColor = secondary,
                 AutoSize = true,
-                Location = new Point(32, 82),
+                Location = new Point(32, 72),
                 BackColor = Color.Transparent
             };
 
@@ -166,7 +166,7 @@ namespace Circadia.Forms
             {
                 Text = "DISPLAY",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    12,
                     FontStyle.Bold
                 ),
                 ForeColor = accent,
@@ -185,7 +185,7 @@ namespace Circadia.Forms
             {
                 Text = "Light mode brightness",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    12,
                     FontStyle.Regular
                 ),
                 ForeColor = white,
@@ -233,7 +233,7 @@ namespace Circadia.Forms
             {
                 Text = "Dark mode brightness",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    12,
                     FontStyle.Regular
                 ),
                 ForeColor = white,
@@ -281,7 +281,7 @@ namespace Circadia.Forms
             {
                 Text = "Blue light filter",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    12,
                     FontStyle.Regular
                 ),
                 ForeColor = white,
@@ -338,7 +338,7 @@ namespace Circadia.Forms
             {
                 Text = "DARK MODE SCHEDULE",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    12,
                     FontStyle.Bold
                 ),
                 ForeColor = accent,
@@ -357,7 +357,7 @@ namespace Circadia.Forms
             {
                 Text = "From",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    10,
                     FontStyle.Regular
                 ),
                 ForeColor = secondary,
@@ -385,7 +385,7 @@ namespace Circadia.Forms
             {
                 Text = "To",
                 Font = CustomFontCollection.GetMontserrat(
-                    9,
+                    10,
                     FontStyle.Regular
                 ),
                 ForeColor = secondary,
@@ -443,7 +443,7 @@ namespace Circadia.Forms
             {
                 Text = "●  Location not set",
                 Font = CustomFontCollection.GetMontserrat(
-                    8.5f,
+                    12,
                     FontStyle.Regular
                 ),
                 ForeColor = secondary,
