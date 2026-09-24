@@ -101,11 +101,7 @@ public static class CustomComponents
     }
 
 
-    public static Panel CreateCard(
-        Point location,
-        Size size,
-        Color background,
-        Color borderColor)
+    public static Panel CreateCard(Point location, Size size, Color background, Color borderColor)
     {
         Panel panel = new Panel()
         {
@@ -113,6 +109,27 @@ public static class CustomComponents
             Size = size,
             BackColor = background
         };
+
+        void UpdateCardShape()
+        {
+            if (panel.Width <= 0 || panel.Height <= 0)
+                return;
+
+            Rectangle rect = new Rectangle(
+                0,
+                0,
+                panel.Width,
+                panel.Height
+            );
+
+            // Prawdziwe zaokrąglenie panelu
+            using (GraphicsPath path = RoundedRect(rect, 16))
+            {
+                panel.Region = new Region(path);
+            }
+
+            panel.Invalidate();
+        }
 
         panel.Paint += (sender, e) =>
         {
@@ -126,18 +143,22 @@ public static class CustomComponents
                 panel.Height - 1
             );
 
-            using GraphicsPath path =
-                RoundedRect(rect, 16);
-
-            using Pen pen =
-                new Pen(borderColor, 1);
-
-            e.Graphics.DrawPath(pen, path);
+            using (GraphicsPath path = RoundedRect(rect, 16))
+            using (Pen pen = new Pen(borderColor, 1))
+            {
+                e.Graphics.DrawPath(pen, path);
+            }
         };
+
+        panel.Resize += (sender, e) =>
+        {
+            UpdateCardShape();
+        };
+
+        UpdateCardShape();
 
         return panel;
     }
-
 
     public static void ApplyRoundedCorners(Control control, int radius)
     {
