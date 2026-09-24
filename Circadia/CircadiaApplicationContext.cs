@@ -12,6 +12,7 @@ public class CircadiaApplicationContext : ApplicationContext
     private IBrightness _brightness;
     private ISystemTheme _theme;
     private SettingsValues _settings;
+    private IBlueLight _blueLight;
     
     public CircadiaApplicationContext()
     {
@@ -19,6 +20,7 @@ public class CircadiaApplicationContext : ApplicationContext
 
         _theme = new SystemTheme();
         _brightness = new Brightness();
+        _blueLight = new BlueLight();
         
         var menu = new ContextMenuStrip();
 
@@ -67,16 +69,11 @@ public class CircadiaApplicationContext : ApplicationContext
     }
 
     private void SetBlueLightTo0(object? sender, EventArgs e)
-    {
-        BlueLight blueLight = new();
-        blueLight.TurnOff();
-    }
+        => _blueLight.TurnOff();
+    
 
     private void SetBlueLightTo100(object? sender, EventArgs e)
-    {
-        BlueLight blueLight = new();
-        blueLight.TurnOn(100);
-    }
+        => _blueLight.TurnOn(100);
 
     private void ShowSettings(object? sender, EventArgs? e)
     {
@@ -87,11 +84,15 @@ public class CircadiaApplicationContext : ApplicationContext
 
     private void ToggleEyeProtection(object? sender, EventArgs e)
     {
+        _blueLight
+            .TurnOn(60);
+
         _brightness.SetBrightness(
             _eyeProtectionOn 
                 ? (uint)_settings.BrightnessLight
                 : (uint)_settings.BrightnessDark
         );
+        
         _theme.SetTheme(
             _eyeProtectionOn
                 ? SystemThemeOption.Light
@@ -106,10 +107,14 @@ public class CircadiaApplicationContext : ApplicationContext
     
     private void Exit(object? sender, EventArgs e)
     {
+        _blueLight.TurnOff();
+
         _trayIcon.Visible = false;
         _trayIcon.Dispose();
+
         ExitThread();
     }
+
     private void ChangeTheme(object? sender, EventArgs e)
     {
         SystemTheme systemTheme = new();
