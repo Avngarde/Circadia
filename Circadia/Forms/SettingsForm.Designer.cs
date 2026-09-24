@@ -61,6 +61,7 @@ namespace Circadia.Forms
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.BackColor = background;
+            this.Icon = new Icon("./Resources/icon.ico");
             this.Name = "Circadia Settings";
             this.Text = "Circadia Settings";
             this.DoubleBuffered = true;
