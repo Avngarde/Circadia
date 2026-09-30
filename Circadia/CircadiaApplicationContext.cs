@@ -78,11 +78,7 @@ public class CircadiaApplicationContext : ApplicationContext
         => _blueLight.TurnOn(100);
 
     private void ShowSettings(object? sender, EventArgs? e)
-    {
-        new SettingsForm(_brightness, _blueLight).ShowDialog();
-
-        Application.Restart();
-    }
+        => new SettingsForm(_brightness, _blueLight).ShowDialog();
 
     private void ToggleEyeProtection(object? sender, EventArgs e)
     {

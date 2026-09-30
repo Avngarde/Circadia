@@ -104,6 +104,7 @@ namespace Circadia.Forms
             
             Settings.Save(values);
             MessageBox.Show(this, "Settings saved successfully", "Settings", MessageBoxButtons.OK);
+            Application.Restart();
         }
 
         private void LoadSettings()
@@ -167,7 +168,7 @@ namespace Circadia.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to get location and sun timing", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Failed to get location and sun timing\n{ex.Message}", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

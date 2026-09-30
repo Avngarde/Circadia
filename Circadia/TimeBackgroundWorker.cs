@@ -41,9 +41,9 @@ public class TimeBackgroundWorker : BackgroundService
             {
                 CheckTime();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to change theme automatically", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Failed to change theme automatically\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
