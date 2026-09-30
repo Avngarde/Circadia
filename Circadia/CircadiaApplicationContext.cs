@@ -1,5 +1,7 @@
 ﻿using Circadia.Features;
 using Circadia.Forms;
+using Circadia.Utils;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Win32;
 
 namespace Circadia;
@@ -25,9 +27,6 @@ public class CircadiaApplicationContext : ApplicationContext
         var menu = new ContextMenuStrip();
 
         menu.Items.Add("Show Settings", null, ShowSettings);
-        menu.Items.Add("Turn Eye Protection On", null, ToggleEyeProtection);
-        menu.Items.Add("Set Blue Light to 100", null, SetBlueLightTo100);
-        menu.Items.Add("Set Blue Light to 0", null, SetBlueLightTo0);
         menu.Items.Add("Exit", null, Exit);
 
         _trayIcon = new NotifyIcon
@@ -67,43 +66,9 @@ public class CircadiaApplicationContext : ApplicationContext
 
         key?.SetValue(appName, appPath);        
     }
-
-    private void SetBlueLightTo0(object? sender, EventArgs e)
-        => _blueLight.TurnOff();
     
-
-    private void SetBlueLightTo100(object? sender, EventArgs e)
-        => _blueLight.TurnOn(100);
-
     private void ShowSettings(object? sender, EventArgs? e)
-    {
-        new SettingsForm(_brightness, _blueLight).ShowDialog();
-
-        Application.Restart();
-    }
-
-    private void ToggleEyeProtection(object? sender, EventArgs e)
-    {
-        _blueLight
-            .TurnOn(60);
-
-        _brightness.SetBrightness(
-            _eyeProtectionOn 
-                ? (uint)_settings.BrightnessLight
-                : (uint)_settings.BrightnessDark
-        );
-        
-        _theme.SetTheme(
-            _eyeProtectionOn
-                ? SystemThemeOption.Light
-                : SystemThemeOption.Dark
-        );
-
-        var menuItem = sender as ToolStripMenuItem;
-        _eyeProtectionOn = !_eyeProtectionOn;
-        
-        menuItem.Text = _eyeProtectionOn ? "Turn Eye Protection Off" : "Turn Eye Protection On";
-    }
+        => new SettingsForm(_brightness, _blueLight).ShowDialog();
     
     private void Exit(object? sender, EventArgs e)
     {
@@ -113,18 +78,5 @@ public class CircadiaApplicationContext : ApplicationContext
         _trayIcon.Dispose();
 
         ExitThread();
-    }
-
-    private void ChangeTheme(object? sender, EventArgs e)
-    {
-        SystemTheme systemTheme = new();
-
-        var theme = systemTheme.GetTheme();
-
-        systemTheme.SetTheme(
-            theme == SystemThemeOption.Light 
-                ? SystemThemeOption.Dark 
-                : SystemThemeOption.Light
-        );
     }
 }

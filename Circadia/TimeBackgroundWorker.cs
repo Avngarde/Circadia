@@ -3,6 +3,7 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Circadia.Features;
+using Circadia.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -40,9 +41,9 @@ public class TimeBackgroundWorker : BackgroundService
             {
                 CheckTime();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to change theme automatically", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Failed to change theme automatically\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
@@ -64,6 +65,8 @@ public class TimeBackgroundWorker : BackgroundService
     
         if (isDarkMode)
         {
+            Notification.ShowNotification("Dark mode: On");
+
             _brightness.SetBrightness((uint)_settings.BrightnessDark);
             _theme.SetTheme(SystemThemeOption.Dark);
             _blueLight.TurnOn((uint)_settings.BlueLightValue);
@@ -72,6 +75,8 @@ public class TimeBackgroundWorker : BackgroundService
         }
         else
         {
+            Notification.ShowNotification("Dark mode: Off");
+
             _brightness.SetBrightness((uint)_settings.BrightnessLight);
             _theme.SetTheme(SystemThemeOption.Light);
             _blueLight.TurnOff(); 
