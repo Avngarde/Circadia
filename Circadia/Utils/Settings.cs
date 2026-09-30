@@ -4,23 +4,26 @@ namespace Circadia.Features;
 
 public static class Settings
 {
+    private static string _path = Path.Combine(Environment.GetFolderPath(
+        Environment.SpecialFolder.ApplicationData), "Circadia/settings.json");
+
     public static void Save(SettingsValues settings)
     {
         var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions());
 
-        File.WriteAllText("settings.json", json);
+        File.WriteAllText(_path, json);
     }
 
     public static SettingsValues? Load()
     {
-        var json = File.ReadAllText("settings.json");
+        var json = File.ReadAllText(_path);
         var model = JsonSerializer.Deserialize<SettingsValues>(json);
 
         return model;
     }
 
     public static bool SettingsFileExists() 
-        => File.Exists("settings.json");
+        => File.Exists(_path);
 
     public static void CreateDefault()
     {
@@ -33,6 +36,12 @@ public static class Settings
             FirstLaunch = true
         };
         
+        Directory.CreateDirectory(
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Circadia"
+            )
+        );
+
         Save(settings);
     }
 }
