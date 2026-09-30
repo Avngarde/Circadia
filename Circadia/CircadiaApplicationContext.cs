@@ -1,5 +1,7 @@
 ﻿using Circadia.Features;
 using Circadia.Forms;
+using Circadia.Utils;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Win32;
 
 namespace Circadia;
@@ -84,8 +86,13 @@ public class CircadiaApplicationContext : ApplicationContext
 
     private void ToggleEyeProtection(object? sender, EventArgs e)
     {
-        _blueLight
-            .TurnOn(60);
+        Notification.ShowNotification(_eyeProtectionOn ? "Dark mode: Off" : "Dark mode: On");
+
+        _blueLight.TurnOn(
+            _eyeProtectionOn
+                ? (uint)0
+                : 60
+        );
 
         _brightness.SetBrightness(
             _eyeProtectionOn 
