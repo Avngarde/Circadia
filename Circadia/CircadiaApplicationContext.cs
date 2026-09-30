@@ -117,17 +117,4 @@ public class CircadiaApplicationContext : ApplicationContext
 
         ExitThread();
     }
-
-    private void ChangeTheme(object? sender, EventArgs e)
-    {
-        SystemTheme systemTheme = new();
-
-        var theme = systemTheme.GetTheme();
-
-        systemTheme.SetTheme(
-            theme == SystemThemeOption.Light 
-                ? SystemThemeOption.Dark 
-                : SystemThemeOption.Light
-        );
-    }
 }
